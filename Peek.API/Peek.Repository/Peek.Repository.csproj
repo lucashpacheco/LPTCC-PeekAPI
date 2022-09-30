@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peek.Models\Peek.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PeekReaderService.Models">
+      <HintPath>..\DLLs\PeekReaderService.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="PeekWriterService.Models">
+      <HintPath>..\DLLs\PeekWriterService.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="UserService.Model">
+      <HintPath>..\DLLs\UserService.Model.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
