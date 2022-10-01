@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Peek.Framework.Common.Responses;
+using Peek.Framework.UserService.Consults;
+using Peek.Framework.UserService.Domain;
 using Peek.Models;
 using Peek.Models.Interfaces;
-using PeekReaderService.Models.Consults;
-using UserService.Model.Consults;
-using UserService.Model.Domain;
-using UserService.Model.Responses.Common;
 
 namespace Peek.Repository
 {

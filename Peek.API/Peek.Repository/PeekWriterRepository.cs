@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Peek.Framework.Common.Responses;
+using Peek.Framework.PeekServices.PeekWriter.Commands;
 using Peek.Models;
 using Peek.Models.Interfaces;
-using PeekWriterService.Models.Commands;
-using PeekWriterService.Models.Common.Responses;
 
 namespace Peek.Repository
 {

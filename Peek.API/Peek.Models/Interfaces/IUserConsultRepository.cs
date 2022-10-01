@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-using UserService.Model.Commands;
-using UserService.Model.Consults;
-using UserService.Model.Domain;
-using UserService.Model.Responses.Common;
+using Peek.Framework.Common.Responses;
+using Peek.Framework.UserService.Commands;
 
 namespace Peek.Models.Interfaces
 {

@@ -13,14 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="PeekReaderService.Models">
-      <HintPath>..\DLLs\PeekReaderService.Models.dll</HintPath>
-    </Reference>
-    <Reference Include="PeekWriterService.Models">
-      <HintPath>..\DLLs\PeekWriterService.Models.dll</HintPath>
-    </Reference>
-    <Reference Include="UserService.Model">
-      <HintPath>..\DLLs\UserService.Model.dll</HintPath>
+    <Reference Include="Peek.Framework">
+      <HintPath>..\DLLs\Peek.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
 

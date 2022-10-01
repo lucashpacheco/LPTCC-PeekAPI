@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Peek.Framework.Common.Responses;
+using Peek.Framework.PeekServices.Documents;
+using Peek.Framework.PeekServices.PeekReader.Consults;
 using Peek.Models;
 using Peek.Models.Interfaces;
-using PeekReaderService.Models.Common.Responses;
-using PeekReaderService.Models.Consults;
-using WriterModels = PeekWriterService.Models;
 
 namespace Peek.Repository
 {
@@ -18,27 +18,27 @@ namespace Peek.Repository
             uri = _configuration.GetSection("Urls:PeekReaderService").Value;
         }
 
-        public async Task<ResponseBase<PagedResult<WriterModels.Domain.PeekDocument>>> Get(GetPeeksRequest getUserByIdRequest)
+        public async Task<ResponseBase<PagedResult<PeekDocument>>> Get(GetPeeksRequest getUserByIdRequest)
         {
-            var result = await http.Get<ResponseBase<PagedResult<WriterModels.Domain.PeekDocument>>>(uri, $"/clinica/laboratorio/{getUserByIdRequest.UserId.ToString()}");
+            var result = await http.Get<ResponseBase<PagedResult<PeekDocument>>>(uri, $"/clinica/laboratorio/{getUserByIdRequest.UserId.ToString()}");
 
             return result;
         }
 
-        public async Task<ResponseBase<PagedResult<WriterModels.Domain.LikesDocument>>> Get(GetLikesRequest getUsersRequest)
+        public async Task<ResponseBase<PagedResult<LikesDocument>>> Get(GetLikesRequest getUsersRequest)
         {
             var paramQueryString = BootstrapQueryString(getUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<WriterModels.Domain.LikesDocument>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<LikesDocument>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
 
             return result;
         }
 
-        public async Task<ResponseBase<PagedResult<WriterModels.Domain.CommentsDocument>>> Get(GetCommentsRequest getFollowedUsersRequest)
+        public async Task<ResponseBase<PagedResult<CommentsDocument>>> Get(GetCommentsRequest getFollowedUsersRequest)
         {
             var paramQueryString = BootstrapQueryString(getFollowedUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<WriterModels.Domain.CommentsDocument>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<CommentsDocument>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
 
             return result;
         }

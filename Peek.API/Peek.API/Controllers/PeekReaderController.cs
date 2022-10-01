@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Peek.Framework.Common.Responses;
+using Peek.Framework.Common.Utils;
+using Peek.Framework.PeekServices.PeekReader.Consults;
 using Peek.Models.Interfaces;
-using UserService.Model.Commands;
-using UserService.Model.Responses.Common;
+
 
 namespace Peek.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PeekReaderController : ControllerBase
+    public class PeekReaderController : BaseController
     {
 
         private readonly ILogger<UserCommandsController> _logger;
@@ -24,25 +24,60 @@ namespace Peek.API.Controllers
             _peekReaderRepository = peekReaderRepository;
         }
 
-        [HttpPost]
-        public Task<ResponseBase<string>> Create(CreateUserCommand createUserCommand)
+        [HttpGet]
+        [Route("peeks", Name = "GetPeeksRequest")]
+        [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
+        [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
+        [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
+        [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
+        [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        public async Task<ActionResult> GetPeeksRequest([FromQuery] GetPeeksRequest getUserByIdRequest)
         {
-            return null;
+            var result = await _peekReaderRepository.Get(getUserByIdRequest);
+            return CustomResponse(result);
         }
-        [HttpPost]
-        public Task<ResponseBase<string>> Create(FollowCommand createUserCommand)
+
+        [HttpGet]
+        [Route("likes", Name = "GetLikesRequest")]
+        [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
+        [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
+        [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
+        [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
+        [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        public async Task<ActionResult> GetLikesRequest([FromQuery] GetLikesRequest getUsersRequest)
         {
-            return null;
+            var result = await _peekReaderRepository.Get(getUsersRequest);
+            return CustomResponse(result);
         }
-        [HttpPost]
-        public Task<ResponseBase<string>> Create(LoginCommand createUserCommand)
+
+        [HttpGet]
+        [Route("comments", Name = "GetCommentsRequest")]
+        [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
+        [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
+        [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
+        [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
+        [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        public async Task<ActionResult> GetCommentsRequest([FromQuery] GetCommentsRequest getFollowedUsersRequest)
         {
-            return null;
+            var result = await _peekReaderRepository.Get(getFollowedUsersRequest);
+            return CustomResponse(result);
         }
-        [HttpPost]
-        public Task<ResponseBase<string>> RefreshToken(RefreshTokenCommand createUserCommand)
+
+        [HttpGet]
+        [Route("countLikes/{id}", Name = "GetLikesCountRequest")]
+        [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
+        [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
+        [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
+        [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
+        [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        public async Task<ActionResult> GetLikesCountRequest([FromRoute] GetLikesCountRequest getPeeksRequest)
         {
-            return null;
+            var result = await _peekReaderRepository.Get(getPeeksRequest);
+            return CustomResponse(result);
         }
     }
 }

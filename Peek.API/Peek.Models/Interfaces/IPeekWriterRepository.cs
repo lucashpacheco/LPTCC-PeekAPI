@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using PeekWriterService.Models.Commands;
-using PeekWriterService.Models.Common.Responses;
+using Peek.Framework.Common.Responses;
+using Peek.Framework.PeekServices.PeekWriter.Commands;
 
 namespace Peek.Models.Interfaces
 {
