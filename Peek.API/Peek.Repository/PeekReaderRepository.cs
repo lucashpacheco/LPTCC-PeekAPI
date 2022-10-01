@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Peek.Framework.Common.Responses;
+using Peek.Framework.Common.Utils;
 using Peek.Framework.PeekServices.Documents;
 using Peek.Framework.PeekServices.PeekReader.Consults;
-using Peek.Models;
 using Peek.Models.Interfaces;
 
 namespace Peek.Repository
@@ -20,7 +20,7 @@ namespace Peek.Repository
 
         public async Task<ResponseBase<PagedResult<PeekDocument>>> Get(GetPeeksRequest getUserByIdRequest)
         {
-            var result = await http.Get<ResponseBase<PagedResult<PeekDocument>>>(uri, $"/clinica/laboratorio/{getUserByIdRequest.UserId.ToString()}");
+            var result = await http.Get<ResponseBase<PagedResult<PeekDocument>>>(uri, $"/Peek?{getUserByIdRequest.UserId.ToString()}");
 
             return result;
         }
@@ -29,7 +29,7 @@ namespace Peek.Repository
         {
             var paramQueryString = BootstrapQueryString(getUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<LikesDocument>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<LikesDocument>>>(uri, $"/Likes?{paramQueryString}");
 
             return result;
         }
@@ -38,14 +38,14 @@ namespace Peek.Repository
         {
             var paramQueryString = BootstrapQueryString(getFollowedUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<CommentsDocument>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<CommentsDocument>>>(uri, $"/Comments?{paramQueryString}");
 
             return result;
         }
 
         public async Task<ResponseBase<int>> Get(GetLikesCountRequest getPeeksRequest)
         {
-            var result = await http.Get<ResponseBase<int>>(uri, $"/clinica/laboratorio?{getPeeksRequest}");
+            var result = await http.Get<ResponseBase<int>>(uri, $"/SOON?{getPeeksRequest}");
 
             return result;
         }

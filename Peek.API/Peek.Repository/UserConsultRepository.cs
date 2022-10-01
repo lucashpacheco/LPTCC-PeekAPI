@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Peek.Framework.Common.Responses;
+using Peek.Framework.Common.Utils;
 using Peek.Framework.UserService.Consults;
 using Peek.Framework.UserService.Domain;
-using Peek.Models;
 using Peek.Models.Interfaces;
 
 namespace Peek.Repository
@@ -20,7 +20,7 @@ namespace Peek.Repository
 
         public async Task<ResponseBase<User>> Get(GetUserByIdRequest getUserByIdRequest)
         {
-            var result = await http.Get<ResponseBase<User>>(uri, $"/clinica/laboratorio/{getUserByIdRequest.UserId.ToString()}");
+            var result = await http.Get<ResponseBase<User>>(uri, $"/UserReader/getuser/{getUserByIdRequest.UserId.ToString()}");
 
             return result;
         }
@@ -29,7 +29,7 @@ namespace Peek.Repository
         {
             var paramQueryString = BootstrapQueryString(getUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<User>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<User>>>(uri, $"/UserReader/getusers?{paramQueryString}");
 
             return result;
         }
@@ -38,7 +38,7 @@ namespace Peek.Repository
         {
             var paramQueryString = BootstrapQueryString(getFollowedUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<User>>>(uri, $"/clinica/laboratorio?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<User>>>(uri, $"/UserReader/getfollowedusers?{paramQueryString}");
 
             return result;
         }

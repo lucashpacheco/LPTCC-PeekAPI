@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Peek.Models;
+using Peek.Framework.Common.Utils;
 using Peek.Models.Interfaces;
 using Peek.Repository;
 

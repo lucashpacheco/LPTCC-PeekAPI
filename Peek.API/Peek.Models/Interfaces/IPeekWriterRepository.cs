@@ -9,6 +9,11 @@ namespace Peek.Models.Interfaces
         Task<ResponseBase<string>> Create(CreatePeekCommand createPeekCommand);
         Task<ResponseBase<string>> Create(CreateCommentCommand createPeekCommand);
         Task<ResponseBase<string>> Create(CreateLikeCommand createPeekCommand);
+        Task<ResponseBase<string>> Delete(DeletePeekCommand deletePeekCommand);
+        Task<ResponseBase<string>> Delete(DeleteCommentCommand deleteCommentCommand);
+        Task<ResponseBase<string>> Delete(DeleteLikeCommand deleteLikeCommand);
+        Task<ResponseBase<string>> Update(UpdateCommentCommand deleteLikeCommand);
+        Task<ResponseBase<string>> Update(UpdatePeekCommand deleteLikeCommand);
 
     }
 }

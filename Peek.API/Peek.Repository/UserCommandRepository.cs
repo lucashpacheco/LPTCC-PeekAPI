@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Peek.Framework.Common.Responses;
+using Peek.Framework.Common.Utils;
 using Peek.Framework.UserService.Commands;
-using Peek.Models;
 using Peek.Models.Interfaces;
 
 namespace Peek.Repository
@@ -20,28 +20,28 @@ namespace Peek.Repository
         public async Task<ResponseBase<string>> Create(CreateUserCommand createUserCommand)
         {
 
-            var result = await http.Post<ResponseBase<string>, CreateUserCommand>(uri, "/usuario", createUserCommand);
+            var result = await http.Post<ResponseBase<string>, CreateUserCommand>(uri, "/UserWriter/create", createUserCommand);
 
             return result;
         }
 
         public async Task<ResponseBase<string>> Create(FollowCommand followCommand)
         {
-            var result = await http.Post<ResponseBase<string>, FollowCommand>(uri, "/usuario", followCommand);
+            var result = await http.Post<ResponseBase<string>, FollowCommand>(uri, "/UserWriter/follow", followCommand);
 
             return result;
         }
 
         public async Task<ResponseBase<string>> Create(LoginCommand loginCommand)
         {
-            var result = await http.Post<ResponseBase<string>, LoginCommand>(uri, "/usuario", loginCommand);
+            var result = await http.Post<ResponseBase<string>, LoginCommand>(uri, "/UserWriter/login", loginCommand);
 
             return result;
         }
 
         public async Task<ResponseBase<string>> RefreshToken(RefreshTokenCommand refreshTokenCommand)
         {
-            var result = await http.Post<ResponseBase<string>, RefreshTokenCommand>(uri, "/usuario", refreshTokenCommand);
+            var result = await http.Post<ResponseBase<string>, RefreshTokenCommand>(uri, "/UserWriter/refreshtoken", refreshTokenCommand);
 
             return result;
         }
