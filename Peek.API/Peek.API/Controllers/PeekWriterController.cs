@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Peek.Framework.Common.Errors;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
 using Peek.Framework.PeekServices.PeekWriter.Commands;
@@ -10,7 +10,7 @@ using Peek.Models.Interfaces;
 namespace Peek.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("peekWriter")]
     public class PeekWriterController : BaseController
     {
 
@@ -30,7 +30,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> CreatePeekCommand([FromBody] CreatePeekCommand createPeekCommand)
         {
             var result = await _peekWriterRepository.Create(createPeekCommand);
@@ -44,7 +44,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> CreateLikeCommand([FromBody] CreateLikeCommand createLikeCommand)
         {
             var result = await _peekWriterRepository.Create(createLikeCommand);
@@ -58,7 +58,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> CreateCommentCommand([FromBody] CreateCommentCommand createCommentCommand)
         {
             var result = await _peekWriterRepository.Create(createCommentCommand);

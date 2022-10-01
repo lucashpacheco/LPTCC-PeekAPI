@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Peek.Framework.Common.Errors;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
 using Peek.Framework.UserService.Commands;
@@ -10,7 +10,7 @@ using Peek.Models.Interfaces;
 namespace Peek.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("userCommands")]
     public class UserCommandsController : BaseController
     {
 
@@ -30,7 +30,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> CreateUserCommand([FromBody] CreateUserCommand createUserCommand)
         {
             var result = await _userCommandRepository.Create(createUserCommand);
@@ -44,7 +44,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> FollowCommand([FromBody] FollowCommand followCommand)
         {
             var result = await _userCommandRepository.Create(followCommand);
@@ -58,7 +58,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> LoginCommand([FromBody] LoginCommand loginCommand)
         {
             var result = await _userCommandRepository.Create(loginCommand);
@@ -72,7 +72,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<ApplicationException>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> RefreshTokenCommand([FromBody] RefreshTokenCommand refreshTokenCommand)
         {
             var result = await _userCommandRepository.RefreshToken(refreshTokenCommand);
