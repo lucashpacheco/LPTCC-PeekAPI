@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peek.API", "Peek.API\Peek.API.csproj", "{ECABA6AB-7D84-48AA-80A7-EE113DF9875E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peek.API", "Peek.API\Peek.API.csproj", "{ECABA6AB-7D84-48AA-80A7-EE113DF9875E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peek.Models", "Peek.Models\Peek.Models.csproj", "{3B119121-F8AE-4D41-A0E5-1F496DDC5A45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peek.Models", "Peek.Models\Peek.Models.csproj", "{3B119121-F8AE-4D41-A0E5-1F496DDC5A45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peek.Repository", "Peek.Repository\Peek.Repository.csproj", "{96085137-90F0-45A5-AF91-C937DA913883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peek.Repository", "Peek.Repository\Peek.Repository.csproj", "{96085137-90F0-45A5-AF91-C937DA913883}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peek.Service", "Peek.Service\Peek.Service.csproj", "{E0861D91-D3A0-42F0-B979-0E5BF602687B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{96085137-90F0-45A5-AF91-C937DA913883}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96085137-90F0-45A5-AF91-C937DA913883}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96085137-90F0-45A5-AF91-C937DA913883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0861D91-D3A0-42F0-B979-0E5BF602687B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0861D91-D3A0-42F0-B979-0E5BF602687B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0861D91-D3A0-42F0-B979-0E5BF602687B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0861D91-D3A0-42F0-B979-0E5BF602687B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

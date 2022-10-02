@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peek.Models\Peek.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Peek.Framework">
+      <HintPath>..\DLLs\Peek.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
