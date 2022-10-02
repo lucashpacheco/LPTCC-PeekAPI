@@ -66,49 +66,49 @@ namespace Peek.API.Controllers
         }
 
         [HttpDelete]
-        [Route("peek", Name = "DeletePeekCommand")]
+        [Route("peek/{PeekId}", Name = "DeletePeekCommand")]
         [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
         [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
-        public async Task<ActionResult> DeletePeekCommand([FromBody] DeletePeekCommand deletePeekCommand)
+        public async Task<ActionResult> DeletePeekCommand([FromRoute] DeletePeekCommand deletePeekCommand)
         {
             var result = await _peekWriterRepository.Delete(deletePeekCommand);
             return CustomResponse(result);
         }
 
         [HttpDelete]
-        [Route("like", Name = "DeleteLikeCommand")]
+        [Route("like/{PeekId}/{UserId}", Name = "DeleteLikeCommand")]
         [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
         [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
-        public async Task<ActionResult> DeleteLikeCommand([FromBody] DeleteLikeCommand deleteLikeCommand)
+        public async Task<ActionResult> DeleteLikeCommand([FromRoute] DeleteLikeCommand deleteLikeCommand)
         {
             var result = await _peekWriterRepository.Delete(deleteLikeCommand);
             return CustomResponse(result);
         }
 
         [HttpDelete]
-        [Route("comment", Name = "DeleteCommentCommand")]
+        [Route("comment/{CommentId}", Name = "DeleteCommentCommand")]
         [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
         [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
-        public async Task<ActionResult> DeleteCommentCommand([FromBody] DeleteCommentCommand deleteCommentCommand)
+        public async Task<ActionResult> DeleteCommentCommand([FromRoute] DeleteCommentCommand deleteCommentCommand)
         {
             var result = await _peekWriterRepository.Delete(deleteCommentCommand);
             return CustomResponse(result);
         }
 
-        [HttpDelete]
-        [Route("like", Name = "DeleteLikeCommand")]
+        [HttpPut]
+        [Route("like", Name = "UpadtePeekCommand")]
         [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
         [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
@@ -121,15 +121,15 @@ namespace Peek.API.Controllers
             return CustomResponse(result);
         }
 
-        [HttpDelete]
-        [Route("comment", Name = "DeleteCommentCommand")]
+        [HttpPut]
+        [Route("comment", Name = "UpdateCommentCommand")]
         [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
         [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
         [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
-        public async Task<ActionResult> DeleteCommentCommand([FromBody] UpdateCommentCommand updateCommentCommand)
+        public async Task<ActionResult> UpdateCommentCommand([FromBody] UpdateCommentCommand updateCommentCommand)
         {
             var result = await _peekWriterRepository.Update(updateCommentCommand);
             return CustomResponse(result);
