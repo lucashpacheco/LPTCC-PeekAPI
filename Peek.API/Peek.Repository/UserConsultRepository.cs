@@ -45,12 +45,12 @@ namespace Peek.Repository
 
         private string BootstrapQueryString(GetUsersRequest getLikesRequest)
         {
-            return "";
+            return $"PageInformation.Page={getLikesRequest.PageInformation.Page}&PageInformation.PageSize={getLikesRequest.PageInformation.PageSize}";
         }
 
         private string BootstrapQueryString(GetFollowedUsersRequest getLikesRequest)
         {
-            return "";
+            return $"UserId={getLikesRequest.UserId.ToString()}&PageInformation.Page={getLikesRequest.PageInformation.Page}&PageInformation.PageSize={getLikesRequest.PageInformation.PageSize}";
         }
 
     }

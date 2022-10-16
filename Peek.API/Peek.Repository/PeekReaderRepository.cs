@@ -5,6 +5,8 @@ using Peek.Framework.Common.Utils;
 using Peek.Framework.PeekServices.Documents;
 using Peek.Framework.PeekServices.PeekReader.Consults;
 using Peek.Models.Interfaces;
+using Domain = Peek.Framework.PeekServices.Domain;
+
 
 namespace Peek.Repository
 {
@@ -18,9 +20,9 @@ namespace Peek.Repository
             uri = _configuration.GetSection("Urls:PeekReaderService").Value;
         }
 
-        public async Task<ResponseBase<PagedResult<PeekDocument>>> Get(GetPeeksRequest getUserByIdRequest)
+        public async Task<ResponseBase<PagedResult<Domain.Peek>>> Get(GetPeeksRequest getUserByIdRequest)
         {
-            var result = await http.Get<ResponseBase<PagedResult<PeekDocument>>>(uri, $"/Peek?{getUserByIdRequest.UserId.ToString()}");
+            var result = await http.Post<ResponseBase<PagedResult<Domain.Peek>>, GetPeeksRequest>(uri, $"/Peek", getUserByIdRequest);
 
             return result;
         }
@@ -49,6 +51,8 @@ namespace Peek.Repository
 
             return result;
         }
+
+
 
         private string BootstrapQueryString(GetCommentsRequest getLikesRequest)
         {

@@ -17,14 +17,16 @@ namespace Peek.API.Controllers
 
         private readonly ILogger<UserCommandsController> _logger;
         private readonly IPeekReaderRepository _peekReaderRepository;
+        private readonly IPeekService _peekService;
 
-        public PeekReaderController(ILogger<UserCommandsController> logger, IPeekReaderRepository peekReaderRepository)
+        public PeekReaderController(ILogger<UserCommandsController> logger, IPeekReaderRepository peekReaderRepository, IPeekService peekService)
         {
             _logger = logger;
             _peekReaderRepository = peekReaderRepository;
+            _peekService = peekService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("peeks", Name = "GetPeeksRequest")]
         [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
         [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
@@ -32,9 +34,10 @@ namespace Peek.API.Controllers
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
-        public async Task<ActionResult> GetPeeksRequest([FromQuery] GetPeeksRequest getUserByIdRequest)
+        public async Task<ActionResult> GetPeeksRequest([FromBody] GetPeeksRequest getUserByIdRequest)
         {
-            var result = await _peekReaderRepository.Get(getUserByIdRequest);
+            var result = await _peekService.Get(getUserByIdRequest);
+
             return CustomResponse(result);
         }
 

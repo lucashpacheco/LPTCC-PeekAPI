@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using Peek.Framework.Common.Request;
 using Peek.Framework.Common.Responses;
-using Documents = Peek.Framework.PeekServices.Documents;
+using Domain = Peek.Framework.PeekServices.Domain;
 
 namespace Peek.Models.Output
 {
     public class PeeksResponse
     {
-        public PageInformation PageInformation { get; set; }
 
-        public List<Peek> Peeks { get; set; }
-        public PeeksResponse(PagedResult<Documents.PeekDocument> peeks)
+        public PagedResult<Peek> Peeks { get; set; }
+        public PeeksResponse(PagedResult<Domain.Peek> peeks)
         {
-            Peeks = new List<Peek>();
+            Peeks = new PagedResult<Peek>();
+            Peeks.Result = new List<Peek>();
             foreach (var peek in peeks.Result)
             {
-                Peeks.Add(new Peek(peek));
+                Peeks.Result.Add(new Peek(peek));
             }
         }
     }
@@ -26,9 +25,10 @@ namespace Peek.Models.Output
         public Guid Id { get; set; }
         public Guid AuthorId { get; set; }
         public string AuthorName { get; set; }
+        public string AuthorProfilePhoto { get; set; }
         public string Message { get; set; }
         public DateTime CreatedDate { get; set; }
-        public Peek(Documents.PeekDocument peek)
+        public Peek(Domain.Peek peek)
         {
             this.Id = peek.Id;
             this.AuthorId = peek.AuthorId;

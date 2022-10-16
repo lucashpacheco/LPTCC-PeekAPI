@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Peek.Framework.Common.Utils;
 using Peek.Models.Interfaces;
 using Peek.Repository;
+using Peek.Service;
 
 namespace Peek.API.Config
 {
@@ -10,6 +11,8 @@ namespace Peek.API.Config
     {
         public static IServiceCollection AddDependencyInjectionConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+
+            services.AddScoped<IPeekService, PeekService>();
 
             services.AddScoped<IPeekReaderRepository, PeekReaderRepository>();
             services.AddScoped<IPeekWriterRepository, PeekWriterRepository>();

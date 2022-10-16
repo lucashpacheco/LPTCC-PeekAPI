@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Peek.Models\Peek.Models.csproj" />
     <ProjectReference Include="..\Peek.Repository\Peek.Repository.csproj" />
+    <ProjectReference Include="..\Peek.Service\Peek.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

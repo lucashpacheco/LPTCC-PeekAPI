@@ -17,9 +17,10 @@ namespace Peek.API.Controllers
         private readonly ILogger<UserCommandsController> _logger;
         private readonly IUserCommandRepository _userCommandRepository;
 
-        public UserCommandsController(ILogger<UserCommandsController> logger, IUserCommandRepository _userCommandRepository)
+        public UserCommandsController(ILogger<UserCommandsController> logger, IUserCommandRepository userCommandRepository)
         {
             _logger = logger;
+            _userCommandRepository = userCommandRepository;
 
         }
 

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Peek.API.Config;
 
 namespace Peek.API
 {
@@ -16,11 +17,22 @@ namespace Peek.API
         }
 
         public IConfiguration Configuration { get; }
+        private readonly string _policyName = "CorsPolicy";
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: _policyName, builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+            services.AddDependencyInjectionConfiguration(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -32,6 +44,8 @@ namespace Peek.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(_policyName);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
