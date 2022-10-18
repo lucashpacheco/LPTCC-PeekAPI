@@ -33,6 +33,9 @@ namespace Peek.Service
                 var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
                 peek.AuthorName = user.Data.Name;
                 peek.AuthorProfilePhoto = user.Data.ProfilePhoto;
+                //peek.LikesCount = _peekReaderRepository.Get(new GetLikesCountRequest() { PeekId = peek.Id }).Result.Data;
+                //peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
+                //TODO: Get comments count
             }
 
             response.Success = true;

@@ -47,7 +47,14 @@ namespace Peek.Repository
 
         public async Task<ResponseBase<int>> Get(GetLikesCountRequest getPeeksRequest)
         {
-            var result = await http.Get<ResponseBase<int>>(uri, $"/SOON?{getPeeksRequest}");
+            var result = await http.Get<ResponseBase<int>>(uri, $"/Likes/count?PeekId={getPeeksRequest.PeekId.ToString()}");
+
+            return result;
+        }
+
+        public async Task<ResponseBase<int>> Get(GetCommentsCountRequest getPeeksRequest)
+        {
+            var result = await http.Get<ResponseBase<int>>(uri, $"/Comments/count?PeekId={getPeeksRequest.PeekId.ToString()}");
 
             return result;
         }

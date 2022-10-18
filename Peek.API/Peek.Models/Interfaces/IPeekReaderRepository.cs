@@ -16,5 +16,6 @@ namespace Peek.Models.Interfaces
         Task<ResponseBase<PagedResult<CommentsDocument>>> Get(GetCommentsRequest getFollowedUsersRequest);
 
         Task<ResponseBase<int>> Get(GetLikesCountRequest getPeeksRequest);
+        Task<ResponseBase<int>> Get(GetCommentsCountRequest getPeeksRequest);
     }
 }

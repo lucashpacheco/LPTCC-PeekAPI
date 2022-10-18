@@ -13,6 +13,7 @@ namespace Peek.API.Config
         {
 
             services.AddScoped<IPeekService, PeekService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IPeekReaderRepository, PeekReaderRepository>();
             services.AddScoped<IPeekWriterRepository, PeekWriterRepository>();

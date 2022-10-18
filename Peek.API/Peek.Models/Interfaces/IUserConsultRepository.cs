@@ -8,6 +8,7 @@ namespace Peek.Models.Interfaces
     {
         Task<ResponseBase<string>> Create(CreateUserCommand createUserCommand);
         Task<ResponseBase<string>> Create(FollowCommand followCommand);
+        Task<ResponseBase<string>> Delete(UnfollowCommand followCommand);
         Task<ResponseBase<string>> Create(LoginCommand loginCommand);
         Task<ResponseBase<string>> RefreshToken(RefreshTokenCommand refreshTokenCommand);
     }

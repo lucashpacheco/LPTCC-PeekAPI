@@ -32,6 +32,13 @@ namespace Peek.Repository
             return result;
         }
 
+        public async Task<ResponseBase<string>> Delete(UnfollowCommand followCommand)
+        {
+            var result = await http.Post<ResponseBase<string>, UnfollowCommand>(uri, "/UserWriter/unfollow", followCommand);
+
+            return result;
+        }
+
         public async Task<ResponseBase<string>> Create(LoginCommand loginCommand)
         {
             var result = await http.Post<ResponseBase<string>, LoginCommand>(uri, "/UserWriter/login", loginCommand);

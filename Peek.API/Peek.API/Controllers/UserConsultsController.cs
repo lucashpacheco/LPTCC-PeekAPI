@@ -16,12 +16,13 @@ namespace Peek.API.Controllers
 
         private readonly ILogger<UserConsultsController> _logger;
         private readonly IUserConsultRepository _userConsultRepository;
+        private readonly IUserService _userService;
 
-        public UserConsultsController(ILogger<UserConsultsController> logger, IUserConsultRepository userConsultRepository)
+        public UserConsultsController(ILogger<UserConsultsController> logger, IUserConsultRepository userConsultRepository, IUserService userService)
         {
             _logger = logger;
             _userConsultRepository = userConsultRepository;
-
+            _userService = userService;
         }
 
         [HttpGet]
@@ -48,7 +49,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetUsersRequest([FromQuery] GetUsersRequest getUsersRequest)
         {
-            var result = await _userConsultRepository.Get(getUsersRequest);
+            var result = await _userService.Get(getUsersRequest);
             return CustomResponse(result);
 
         }

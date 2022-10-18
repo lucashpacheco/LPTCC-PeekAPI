@@ -53,6 +53,20 @@ namespace Peek.API.Controllers
         }
 
         [HttpPost]
+        [Route("unfollow", Name = "UnfollowCommand")]
+        [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
+        [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
+        [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
+        [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
+        [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
+        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
+        public async Task<ActionResult> UnfollowCommand([FromBody] UnfollowCommand followCommand)
+        {
+            var result = await _userCommandRepository.Delete(followCommand);
+            return CustomResponse(result);
+        }
+
+        [HttpPost]
         [Route("login", Name = "LoginCommand")]
         [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
         [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
