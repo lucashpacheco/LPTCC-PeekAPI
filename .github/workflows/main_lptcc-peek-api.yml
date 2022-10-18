@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: lptccapi.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_704ad159dea34fd8abaf73ee5148bf18 }}/peekapi:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./Peek.API/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
