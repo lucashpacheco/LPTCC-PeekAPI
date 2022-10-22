@@ -5,6 +5,7 @@ using Peek.Framework.Common.Errors;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
 using Peek.Framework.PeekServices.PeekReader.Consults;
+using Peek.Framework.UserService.Consults;
 using Peek.Models.Interfaces;
 
 
@@ -36,6 +37,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetPeeksRequest([FromBody] GetPeeksRequest getUserByIdRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetPeeksRequest received in API controller : {getUserByIdRequest}");
             var result = await _peekService.Get(getUserByIdRequest);
 
             return CustomResponse(result);
@@ -51,6 +53,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetLikesRequest([FromQuery] GetLikesRequest getUsersRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetLikesRequest received in API controller : {getUsersRequest}");
             var result = await _peekReaderRepository.Get(getUsersRequest);
             return CustomResponse(result);
         }
@@ -65,6 +68,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetCommentsRequest([FromQuery] GetCommentsRequest getFollowedUsersRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetCommentsRequest received in API controller : {getFollowedUsersRequest}");
             var result = await _peekReaderRepository.Get(getFollowedUsersRequest);
             return CustomResponse(result);
         }
@@ -79,6 +83,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetLikesCountRequest([FromRoute] GetLikesCountRequest getPeeksRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetLikesCountRequest received in API controller : {getPeeksRequest}");
             var result = await _peekReaderRepository.Get(getPeeksRequest);
             return CustomResponse(result);
         }

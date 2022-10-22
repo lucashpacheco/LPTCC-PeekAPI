@@ -5,6 +5,7 @@ using Peek.Framework.Common.Errors;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
 using Peek.Framework.PeekServices.PeekWriter.Commands;
+using Peek.Framework.UserService.Commands;
 using Peek.Models.Interfaces;
 
 namespace Peek.API.Controllers
@@ -33,6 +34,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> CreatePeekCommand([FromBody] CreatePeekCommand createPeekCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - FollowCommand received in API controller : {createPeekCommand}");
             var result = await _peekWriterRepository.Create(createPeekCommand);
             return CustomResponse(result);
         }
@@ -47,6 +49,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> CreateLikeCommand([FromBody] CreateLikeCommand createLikeCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - FollowCommand received in API controller : {createLikeCommand}");
             var result = await _peekWriterRepository.Create(createLikeCommand);
             return CustomResponse(result);
         }
@@ -61,6 +64,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> CreateCommentCommand([FromBody] CreateCommentCommand createCommentCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - CreateCommentCommand received in API controller : {createCommentCommand}");
             var result = await _peekWriterRepository.Create(createCommentCommand);
             return CustomResponse(result);
         }
@@ -75,6 +79,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> DeletePeekCommand([FromRoute] DeletePeekCommand deletePeekCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - DeletePeekCommand received in API controller : {deletePeekCommand}");
             var result = await _peekWriterRepository.Delete(deletePeekCommand);
             return CustomResponse(result);
         }
@@ -89,6 +94,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> DeleteLikeCommand([FromQuery] DeleteLikeCommand deleteLikeCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - DeleteLikeCommand received in API controller : {deleteLikeCommand}");
             var result = await _peekWriterRepository.Delete(deleteLikeCommand);
             return CustomResponse(result);
         }
@@ -103,6 +109,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> DeleteCommentCommand([FromRoute] DeleteCommentCommand deleteCommentCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - DeleteCommentCommand received in API controller : {deleteCommentCommand}");
             var result = await _peekWriterRepository.Delete(deleteCommentCommand);
             return CustomResponse(result);
         }
@@ -117,6 +124,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> UpadtePeekCommand([FromBody] UpdatePeekCommand updatePeekCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - UpdatePeekCommand received in API controller : {updatePeekCommand}");
             var result = await _peekWriterRepository.Update(updatePeekCommand);
             return CustomResponse(result);
         }
@@ -131,6 +139,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> UpdateCommentCommand([FromBody] UpdateCommentCommand updateCommentCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - UpdateCommentCommand received in API controller : {updateCommentCommandFEAT}");
             var result = await _peekWriterRepository.Update(updateCommentCommand);
             return CustomResponse(result);
         }

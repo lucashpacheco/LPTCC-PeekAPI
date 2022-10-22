@@ -48,6 +48,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> FollowCommand([FromBody] FollowCommand followCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - FollowCommand received in API controller : {followCommand}");
             var result = await _userCommandRepository.Create(followCommand);
             return CustomResponse(result);
         }
@@ -62,6 +63,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> UnfollowCommand([FromBody] UnfollowCommand followCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - UnfollowCommand received in API controller : {followCommand}");
             var result = await _userCommandRepository.Delete(followCommand);
             return CustomResponse(result);
         }
@@ -76,7 +78,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> LoginCommand([FromBody] LoginCommand loginCommand)
         {
-            _logger.Log(LogLevel.Information, $"Login command received in API controller : {loginCommand}");
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - LoginCommand received in API controller : {loginCommand}");
             var result = await _userCommandRepository.Create(loginCommand);
             return CustomResponse(result);
         }
@@ -91,6 +93,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> RefreshTokenCommand([FromBody] RefreshTokenCommand refreshTokenCommand)
         {
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - RefreshTokenCommand received in API controller : {refreshTokenCommand}");
             var result = await _userCommandRepository.RefreshToken(refreshTokenCommand);
             return CustomResponse(result);
         }

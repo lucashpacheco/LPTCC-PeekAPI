@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Peek.Framework.Common.Errors;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
+using Peek.Framework.UserService.Commands;
 using Peek.Framework.UserService.Consults;
 using Peek.Models.Interfaces;
 
@@ -35,6 +36,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetUserByIdRequest([FromRoute] GetUserByIdRequest getUserByIdRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetUserByIdRequest received in API controller : {getUserByIdRequest}");
             var result = await _userConsultRepository.Get(getUserByIdRequest);
             return CustomResponse(result);
         }
@@ -49,6 +51,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetUsersRequest([FromQuery] GetUsersRequest getUsersRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetUsersRequest received in API controller : {getUsersRequest}");
             var result = await _userService.Get(getUsersRequest);
             return CustomResponse(result);
 
@@ -64,6 +67,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> GetFollowedUsersRequest([FromQuery] GetFollowedUsersRequest getFollowedUsersRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetFollowedUsersRequest received in API controller : {getFollowedUsersRequest}");
             var result = await _userConsultRepository.Get(getFollowedUsersRequest);
             return CustomResponse(result);
         }
