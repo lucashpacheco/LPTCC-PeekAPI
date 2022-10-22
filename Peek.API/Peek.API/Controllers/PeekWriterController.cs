@@ -139,7 +139,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> UpdateCommentCommand([FromBody] UpdateCommentCommand updateCommentCommand)
         {
-            _logger.Log(LogLevel.Information, $"[CommandReceived] - UpdateCommentCommand received in API controller : {updateCommentCommandFEAT}");
+            _logger.Log(LogLevel.Information, $"[CommandReceived] - UpdateCommentCommand received in API controller : {updateCommentCommand}");
             var result = await _peekWriterRepository.Update(updateCommentCommand);
             return CustomResponse(result);
         }

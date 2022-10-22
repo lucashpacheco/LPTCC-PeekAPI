@@ -13,7 +13,7 @@ namespace Peek.Models.Interfaces
 
         Task<ResponseBase<PagedResult<Domain.Like>>> Get(GetLikesRequest getUsersRequest);
 
-        Task<ResponseBase<PagedResult<CommentsDocument>>> Get(GetCommentsRequest getFollowedUsersRequest);
+        Task<ResponseBase<PagedResult<Domain.Comment>>> Get(GetCommentsRequest getFollowedUsersRequest);
 
         Task<ResponseBase<int>> Get(GetLikesCountRequest getPeeksRequest);
         Task<ResponseBase<int>> Get(GetCommentsCountRequest getPeeksRequest);

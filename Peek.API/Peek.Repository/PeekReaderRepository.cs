@@ -37,11 +37,11 @@ namespace Peek.Repository
             return result;
         }
 
-        public async Task<ResponseBase<PagedResult<CommentsDocument>>> Get(GetCommentsRequest getFollowedUsersRequest)
+        public async Task<ResponseBase<PagedResult<Domain.Comment>>> Get(GetCommentsRequest getFollowedUsersRequest)
         {
             var paramQueryString = BootstrapQueryString(getFollowedUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<CommentsDocument>>>(uri, $"/Comments?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<Domain.Comment>>>(uri, $"/Comments?{paramQueryString}");
 
             return result;
         }
