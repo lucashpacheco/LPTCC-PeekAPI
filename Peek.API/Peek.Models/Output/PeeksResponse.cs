@@ -29,7 +29,7 @@ namespace Peek.Models.Output
         public string Message { get; set; }
         public int LikesCount { get; set; }
         public int CommentsCount { get; set; }
-        public string Likes { get; set; }
+        public List<Domain.Like> Likes { get; set; }
         public bool Liked { get; set; }
         public DateTime CreatedDate { get; set; }
         public Peek(Domain.Peek peek)

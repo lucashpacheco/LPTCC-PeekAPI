@@ -56,7 +56,7 @@ namespace Peek.Repository
 
         public async Task<ResponseBase<string>> Delete(DeleteLikeCommand deleteLikeCommand)
         {
-            var result = await http.Delete<ResponseBase<string>>(uri, $"/Likes/{deleteLikeCommand.UserId.ToString()}");
+            var result = await http.Delete<ResponseBase<string>>(uri, $"/Likes?PeekId={deleteLikeCommand.PeekId.ToString()}&UserId={deleteLikeCommand.UserId.ToString()}");
 
             return result;
         }

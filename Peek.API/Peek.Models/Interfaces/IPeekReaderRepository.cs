@@ -11,7 +11,7 @@ namespace Peek.Models.Interfaces
     {
         Task<ResponseBase<PagedResult<Domain.Peek>>> Get(GetPeeksRequest getUserByIdRequest);
 
-        Task<ResponseBase<PagedResult<LikesDocument>>> Get(GetLikesRequest getUsersRequest);
+        Task<ResponseBase<PagedResult<Domain.Like>>> Get(GetLikesRequest getUsersRequest);
 
         Task<ResponseBase<PagedResult<CommentsDocument>>> Get(GetCommentsRequest getFollowedUsersRequest);
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Peek.Framework.Common.Responses;
@@ -27,11 +28,11 @@ namespace Peek.Repository
             return result;
         }
 
-        public async Task<ResponseBase<PagedResult<LikesDocument>>> Get(GetLikesRequest getUsersRequest)
+        public async Task<ResponseBase<PagedResult<Domain.Like>>> Get(GetLikesRequest getUsersRequest)
         {
             var paramQueryString = BootstrapQueryString(getUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<LikesDocument>>>(uri, $"/Likes?{paramQueryString}");
+            var result = await http.Get<ResponseBase<PagedResult<Domain.Like>>>(uri, $"/Likes?{paramQueryString}");
 
             return result;
         }
@@ -68,7 +69,7 @@ namespace Peek.Repository
 
         private string BootstrapQueryString(GetLikesRequest getLikesRequest)
         {
-            return "";
+            return $"PeekId={getLikesRequest.PeekId}&PageInformation.Page={getLikesRequest.PageInformation.Page}&PageInformation.PageSize={getLikesRequest.PageInformation.PageSize}";
         }
     }
 }

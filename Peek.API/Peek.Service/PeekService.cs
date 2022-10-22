@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
+using Peek.Framework.Common.Request;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.PeekServices.PeekReader.Consults;
 using Peek.Framework.UserService.Consults;
@@ -24,6 +27,10 @@ namespace Peek.Service
         {
             var response = new ResponseBase<PagedResult<Output.Peek>>(success: true, errors: new List<string>(), data: null);
 
+            var userId = getPeeksRequest.UserId.FirstOrDefault();
+
+            getPeeksRequest.UserId = new List<System.Guid>();
+
             var result = await _peekReaderRepository.Get(getPeeksRequest);
 
             var peekResponse = new PeeksResponse(result.Data);
@@ -31,11 +38,13 @@ namespace Peek.Service
             foreach (var peek in peekResponse.Peeks.Result)
             {
                 var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
+                var likes = await _peekReaderRepository.Get(new GetLikesRequest() { PeekId = peek.Id  , PageInformation = new PageInformation() { Page = 1 , PageSize = 2000} });
                 peek.AuthorName = user.Data.Name;
                 peek.AuthorProfilePhoto = user.Data.ProfilePhoto;
-                //peek.LikesCount = _peekReaderRepository.Get(new GetLikesCountRequest() { PeekId = peek.Id }).Result.Data;
-                //peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
-                //TODO: Get comments count
+                peek.Likes = likes.Data != null ? likes.Data.Result : null;
+                peek.Liked = likes.Data != null ? likes.Data.Result.Select(x => x.UserId).ToList().Contains(userId) : false;
+                peek.LikesCount = _peekReaderRepository.Get(new GetLikesCountRequest() { PeekId = peek.Id }).Result.Data;
+                peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
             }
 
             response.Success = true;
