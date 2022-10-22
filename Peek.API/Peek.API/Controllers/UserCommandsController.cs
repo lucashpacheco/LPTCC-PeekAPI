@@ -76,6 +76,7 @@ namespace Peek.API.Controllers
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
         public async Task<ActionResult> LoginCommand([FromBody] LoginCommand loginCommand)
         {
+            _logger.Log(LogLevel.Information, $"Login command received in API controller : {loginCommand}");
             var result = await _userCommandRepository.Create(loginCommand);
             return CustomResponse(result);
         }
