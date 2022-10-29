@@ -51,5 +51,30 @@ namespace Peek.Service
             response.Data = peekResponse.Peeks;
             return response;
         }
+
+        public async Task<ResponseBase<PagedResult<Output.Comment>>> Get(GetCommentsRequest getCommentsRequest)
+        {
+            var response = new ResponseBase<PagedResult<Output.Comment>>(success: false, errors: new List<string>(), data: null);
+
+            var result = await _peekReaderRepository.Get(getCommentsRequest);
+            if (result == null || result.Data == null)
+            {
+                return response;
+            }
+
+            var commentsResponse = new CommentsResponse(result.Data);
+
+            foreach (var peek in commentsResponse.Comments.Result)
+            {
+                var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
+                peek.AuthorName = user.Data.Name;
+                peek.AuthorProfilePhoto = user.Data.ProfilePhoto;
+                
+            }
+
+            response.Success = true;
+            response.Data = commentsResponse.Comments;
+            return response;
+        }
     }
 }

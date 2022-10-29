@@ -7,5 +7,6 @@ namespace Peek.Models.Interfaces
     public interface IPeekService
     {
         Task<ResponseBase<PagedResult<Output.Peek>>> Get(GetPeeksRequest getPeeksRequest);
+        Task<ResponseBase<PagedResult<Output.Comment>>> Get(GetCommentsRequest getCommentsRequest);
     }
 }

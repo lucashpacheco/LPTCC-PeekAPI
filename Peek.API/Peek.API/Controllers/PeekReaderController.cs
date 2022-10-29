@@ -66,10 +66,10 @@ namespace Peek.API.Controllers
         [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
         [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
         [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
-        public async Task<ActionResult> GetCommentsRequest([FromQuery] GetCommentsRequest getFollowedUsersRequest)
+        public async Task<ActionResult> GetCommentsRequest([FromQuery] GetCommentsRequest getCommentsRequest)
         {
-            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetCommentsRequest received in API controller : {getFollowedUsersRequest}");
-            var result = await _peekReaderRepository.Get(getFollowedUsersRequest);
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetCommentsRequest received in API controller : {getCommentsRequest}");
+            var result = await _peekService.Get(getCommentsRequest);
             return CustomResponse(result);
         }
 
