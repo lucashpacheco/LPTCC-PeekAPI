@@ -60,8 +60,6 @@ namespace Peek.Repository
             return result;
         }
 
-
-
         private string BootstrapQueryString(GetCommentsRequest getLikesRequest)
         {
             return $"PeekId={getLikesRequest.PeekId}&PageInformation.Page={getLikesRequest.PageInformation.Page}&PageInformation.PageSize={getLikesRequest.PageInformation.PageSize}";
