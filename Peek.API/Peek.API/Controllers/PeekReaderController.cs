@@ -73,19 +73,19 @@ namespace Peek.API.Controllers
             return CustomResponse(result);
         }
 
-        [HttpGet]
-        [Route("countLikes/{PeekId}", Name = "GetLikesCountRequest")]
-        [ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
-        [ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
-        [ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
-        [ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
-        [ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
-        [ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
-        public async Task<ActionResult> GetLikesCountRequest([FromRoute] GetLikesCountRequest getPeeksRequest)
-        {
-            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetLikesCountRequest received in API controller : {getPeeksRequest}");
-            var result = await _peekReaderRepository.Get(getPeeksRequest);
-            return CustomResponse(result);
-        }
+        //[HttpGet]
+        //[Route("countLikes/{PeekId}", Name = "GetLikesCountRequest")]
+        //[ProducesResponseType(200, Type = typeof(ResponseBase<string>))]
+        //[ProducesResponseType(400, Type = typeof(ResponseBase<BadRequestResult>))]
+        //[ProducesResponseType(401, Type = typeof(ResponseBase<UnauthorizedResult>))]
+        //[ProducesResponseType(403, Type = typeof(ResponseBase<ForbidResult>))]
+        //[ProducesResponseType(404, Type = typeof(ResponseBase<NotFoundResult>))]
+        //[ProducesResponseType(500, Type = typeof(ResponseBase<GenericError>))]
+        //public async Task<ActionResult> GetLikesCountRequest([FromRoute] GetLikesCountRequest getPeeksRequest)
+        //{
+        //    _logger.Log(LogLevel.Information, $"[RequestReceived] - GetLikesCountRequest received in API controller : {getPeeksRequest}");
+        //    var result = await _peekReaderRepository.Get(getPeeksRequest);
+        //    return CustomResponse(result);
+        //}
     }
 }

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Peek.Framework.Common.Request;
 using Peek.Framework.Common.Responses;
+using Peek.Framework.PeekServices.Domain;
 using Peek.Framework.PeekServices.PeekReader.Consults;
 using Peek.Framework.UserService.Consults;
 using Peek.Models.Interfaces;
@@ -35,17 +37,45 @@ namespace Peek.Service
 
             var peekResponse = new PeeksResponse(result.Data);
 
-            foreach (var peek in peekResponse.Peeks.Result)
-            {
-                var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
-                var likes = await _peekReaderRepository.Get(new GetLikesRequest() { PeekId = peek.Id  , PageInformation = new PageInformation() { Page = 1 , PageSize = 2000} });
-                peek.AuthorName = user.Data.Name;
-                peek.AuthorProfilePhoto = user.Data.ProfilePhoto;
-                peek.Likes = likes.Data != null ? likes.Data.Result : null;
-                peek.Liked = likes.Data != null ? likes.Data.Result.Select(x => x.UserId).ToList().Contains(userId) : false;
-                peek.LikesCount = _peekReaderRepository.Get(new GetLikesCountRequest() { PeekId = peek.Id }).Result.Data;
-                peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
-            }
+            var userIds = peekResponse.Peeks.Result.Select( x => x.AuthorId).ToList();
+            var peeksIds = peekResponse.Peeks.Result.Select( x => x.Id).ToList();
+
+            var users = await _userConsultRepository.Get(new GetUsersRequest() 
+                                                        { 
+                                                            UsersIds = userIds, 
+                                                            PageInformation = new PageInformation() { Page = 1, PageSize = userIds.Count() } 
+                                                        });
+
+            var likes = await _peekReaderRepository.Get(new GetLikesRequest() { PeeksIds = peeksIds , PageInformation = new PageInformation() { Page = 1, PageSize = 20000 } });
+
+            peekResponse.Peeks.Result.ForEach(
+                peek =>
+                {
+                    var user = users.Data.Result.Where(x => x.Id == peek.AuthorId.ToString()).FirstOrDefault();
+                    //var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
+                    peek.AuthorName = user.Name;
+                    peek.AuthorProfilePhoto = user.ProfilePhoto;
+                    peek.Likes = likes.Data != null ? likes.Data.Result : null;
+                    peek.Liked = likes.Data != null ? likes.Data.Result.Select(x => x.UserId).ToList().Contains(userId) : false;
+                    peek.LikesCount = likes.Data != null ? likes.Data.Result.Count() : 0;
+                    peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
+
+                    //users.Data.Result.Remove(user);
+                });
+
+            //foreach (var peek in peekResponse.Peeks.Result)
+            //{
+            //    var user = users.Data.Result.Where( x => x.Id == peek.AuthorId.ToString()).FirstOrDefault();
+            //    //var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
+            //    peek.AuthorName = user.Name;
+            //    peek.AuthorProfilePhoto = user.ProfilePhoto;
+            //    peek.Likes = likes.Data != null ? likes.Data.Result : null;
+            //    peek.Liked = likes.Data != null ? likes.Data.Result.Select(x => x.UserId).ToList().Contains(userId) : false;
+            //    peek.LikesCount = likes.Data != null ? likes.Data.Result.Count() : 0;
+            //    peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
+
+            //    users.Data.Result.Remove(user);
+            //}
 
             response.Success = true;
             response.Data = peekResponse.Peeks;

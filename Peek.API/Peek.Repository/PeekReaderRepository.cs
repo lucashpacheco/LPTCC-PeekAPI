@@ -5,6 +5,7 @@ using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
 using Peek.Framework.PeekServices.Documents;
 using Peek.Framework.PeekServices.PeekReader.Consults;
+using Peek.Framework.UserService.Consults;
 using Peek.Models.Interfaces;
 using Domain = Peek.Framework.PeekServices.Domain;
 
@@ -28,11 +29,10 @@ namespace Peek.Repository
             return result;
         }
 
-        public async Task<ResponseBase<PagedResult<Domain.Like>>> Get(GetLikesRequest getUsersRequest)
+        public async Task<ResponseBase<PagedResult<Domain.Like>>> Get(GetLikesRequest getLikesRequest)
         {
-            var paramQueryString = BootstrapQueryString(getUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<Domain.Like>>>(uri, $"/Likes?{paramQueryString}");
+            var result = await http.Post<ResponseBase<PagedResult<Domain.Like>>, GetLikesRequest>(uri, $"/Likes", getLikesRequest);
 
             return result;
         }
@@ -46,12 +46,12 @@ namespace Peek.Repository
             return result;
         }
 
-        public async Task<ResponseBase<int>> Get(GetLikesCountRequest getPeeksRequest)
-        {
-            var result = await http.Get<ResponseBase<int>>(uri, $"/Likes/count?PeekId={getPeeksRequest.PeekId.ToString()}");
+        //public async Task<ResponseBase<int>> Get(GetLikesCountRequest getPeeksRequest)
+        //{
+        //    var result = await http.Get<ResponseBase<int>>(uri, $"/Likes/count?PeekId={getPeeksRequest.PeekId.ToString()}");
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public async Task<ResponseBase<int>> Get(GetCommentsCountRequest getPeeksRequest)
         {
@@ -67,7 +67,7 @@ namespace Peek.Repository
 
         private string BootstrapQueryString(GetLikesRequest getLikesRequest)
         {
-            return $"PeekId={getLikesRequest.PeekId}&PageInformation.Page={getLikesRequest.PageInformation.Page}&PageInformation.PageSize={getLikesRequest.PageInformation.PageSize}";
+            return $"PeeksIds=[\"{string.Join("\",\"", getLikesRequest.PeeksIds)}\"]&PageInformation.Page={getLikesRequest.PageInformation.Page}&PageInformation.PageSize={getLikesRequest.PageInformation.PageSize}";
         }
     }
 }
