@@ -43,40 +43,39 @@ namespace Peek.Service
             var users = await _userConsultRepository.Get(new GetUsersRequest() 
                                                         { 
                                                             UsersIds = userIds, 
-                                                            PageInformation = new PageInformation() { Page = 1, PageSize = userIds.Count() } 
+                                                            PageInformation = new PageInformation() { Page = 1, PageSize = 20000 } 
                                                         });
 
             var likes = await _peekReaderRepository.Get(new GetLikesRequest() { PeeksIds = peeksIds , PageInformation = new PageInformation() { Page = 1, PageSize = 20000 } });
 
-            peekResponse.Peeks.Result.ForEach(
-                peek =>
-                {
-                    var likesDocument = likes.Data.Result.Where(x => x.PeekId == peek.Id).ToList().FirstOrDefault();
-                    var user = users.Data.Result.Where(x => x.Id == peek.AuthorId.ToString()).FirstOrDefault();
-                    //var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
-                    peek.AuthorName = user.Name;
-                    peek.AuthorProfilePhoto = user.ProfilePhoto;
-                    peek.Likes = likesDocument != null ? likesDocument.Likes : null;
-                    peek.Liked = peek.Likes != null ? peek.Likes.Select(x => x.UserId).ToList().Contains(userId) : false;
-                    peek.LikesCount = peek.Likes != null ? peek.Likes.Count() : 0;
-                    peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
+            //peekResponse.Peeks.Result.ForEach(
+            //    peek =>
+            //    {
+            //        var likesDocument = likes.Data.Result.Where(x => x.PeekId == peek.Id).ToList().FirstOrDefault();
+            //        var user = users.Data.Result.Where(x => x.Id == peek.AuthorId.ToString()).FirstOrDefault();
+            //        //var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
+            //        peek.AuthorName = user.Name;
+            //        peek.AuthorProfilePhoto = user.ProfilePhoto;
+            //        peek.Likes = likesDocument != null ? likesDocument.Likes : null;
+            //        peek.Liked = peek.Likes != null ? peek.Likes.Select(x => x.UserId).ToList().Contains(userId) : false;
+            //        peek.LikesCount = peek.Likes != null ? peek.Likes.Count() : 0;
+            //        peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
 
-                    //users.Data.Result.Remove(user);
-                });
+            //        //users.Data.Result.Remove(user);
+            //    });
 
-            //foreach (var peek in peekResponse.Peeks.Result)
-            //{
-            //    var user = users.Data.Result.Where( x => x.Id == peek.AuthorId.ToString()).FirstOrDefault();
-            //    //var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
-            //    peek.AuthorName = user.Name;
-            //    peek.AuthorProfilePhoto = user.ProfilePhoto;
-            //    peek.Likes = likes.Data != null ? likes.Data.Result : null;
-            //    peek.Liked = likes.Data != null ? likes.Data.Result.Select(x => x.UserId).ToList().Contains(userId) : false;
-            //    peek.LikesCount = likes.Data != null ? likes.Data.Result.Count() : 0;
-            //    peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
-
-            //    users.Data.Result.Remove(user);
-            //}
+            foreach (var peek in peekResponse.Peeks.Result)
+            {
+                var likesDocument = likes.Data.Result.Where(x => x.PeekId == peek.Id).ToList().FirstOrDefault();
+                var user = users.Data.Result.Where(x => x.Id == peek.AuthorId.ToString()).FirstOrDefault();
+                //var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
+                peek.AuthorName = user.Name;
+                peek.AuthorProfilePhoto = user.ProfilePhoto;
+                peek.Likes = likesDocument != null ? likesDocument.Likes : null;
+                peek.Liked = peek.Likes != null ? peek.Likes.Select(x => x.UserId).ToList().Contains(userId) : false;
+                peek.LikesCount = peek.Likes != null ? peek.Likes.Count() : 0;
+                peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
+            }
 
             response.Success = true;
             response.Data = peekResponse.Peeks;

@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
+using Peek.Framework.UserService.Commands;
 using Peek.Framework.UserService.Consults;
 using Peek.Framework.UserService.Domain;
 using Peek.Models.Interfaces;
@@ -27,9 +28,8 @@ namespace Peek.Repository
 
         public async Task<ResponseBase<PagedResult<User>>> Get(GetUsersRequest getUsersRequest)
         {
-            var paramQueryString = BootstrapQueryString(getUsersRequest);
 
-            var result = await http.Get<ResponseBase<PagedResult<User>>>(uri, $"/UserReader/getusers?{paramQueryString}");
+            var result = await http.Post<ResponseBase<PagedResult<User>>, GetUsersRequest>(uri, "/UserReader/getusers", getUsersRequest);
 
             return result;
         }
