@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Peek.Framework.Common.Responses;
-using Peek.Framework.PeekServices.Documents;
 using Peek.Framework.PeekServices.PeekReader.Consults;
+using Peek.Framework.PeekServices.PeekReader.Responses;
 using Domain = Peek.Framework.PeekServices.Domain;
 
 
@@ -11,7 +11,7 @@ namespace Peek.Models.Interfaces
     {
         Task<ResponseBase<PagedResult<Domain.Peek>>> Get(GetPeeksRequest getUserByIdRequest);
 
-        Task<ResponseBase<PagedResult<Domain.Like>>> Get(GetLikesRequest getUsersRequest);
+        Task<ResponseBase<PagedResult<LikesResponse>>> Get(GetLikesRequest getUsersRequest);
 
         Task<ResponseBase<PagedResult<Domain.Comment>>> Get(GetCommentsRequest getFollowedUsersRequest);
 

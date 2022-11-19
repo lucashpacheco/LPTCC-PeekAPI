@@ -51,13 +51,14 @@ namespace Peek.Service
             peekResponse.Peeks.Result.ForEach(
                 peek =>
                 {
+                    var likesDocument = likes.Data.Result.Where(x => x.PeekId == peek.Id).ToList().FirstOrDefault();
                     var user = users.Data.Result.Where(x => x.Id == peek.AuthorId.ToString()).FirstOrDefault();
                     //var user = await _userConsultRepository.Get(new GetUserByIdRequest() { UserId = peek.AuthorId });
                     peek.AuthorName = user.Name;
                     peek.AuthorProfilePhoto = user.ProfilePhoto;
-                    peek.Likes = likes.Data != null ? likes.Data.Result : null;
-                    peek.Liked = likes.Data != null ? likes.Data.Result.Select(x => x.UserId).ToList().Contains(userId) : false;
-                    peek.LikesCount = likes.Data != null ? likes.Data.Result.Count() : 0;
+                    peek.Likes = likesDocument != null ? likesDocument.Likes : null;
+                    peek.Liked = peek.Likes != null ? peek.Likes.Select(x => x.UserId).ToList().Contains(userId) : false;
+                    peek.LikesCount = peek.Likes != null ? peek.Likes.Count() : 0;
                     peek.CommentsCount = _peekReaderRepository.Get(new GetCommentsCountRequest() { PeekId = peek.Id }).Result.Data;
 
                     //users.Data.Result.Remove(user);

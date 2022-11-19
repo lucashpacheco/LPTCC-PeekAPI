@@ -5,6 +5,7 @@ using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
 using Peek.Framework.PeekServices.Documents;
 using Peek.Framework.PeekServices.PeekReader.Consults;
+using Peek.Framework.PeekServices.PeekReader.Responses;
 using Peek.Framework.UserService.Consults;
 using Peek.Models.Interfaces;
 using Domain = Peek.Framework.PeekServices.Domain;
@@ -29,10 +30,10 @@ namespace Peek.Repository
             return result;
         }
 
-        public async Task<ResponseBase<PagedResult<Domain.Like>>> Get(GetLikesRequest getLikesRequest)
+        public async Task<ResponseBase<PagedResult<LikesResponse>>> Get(GetLikesRequest getLikesRequest)
         {
 
-            var result = await http.Post<ResponseBase<PagedResult<Domain.Like>>, GetLikesRequest>(uri, $"/Likes", getLikesRequest);
+            var result = await http.Post<ResponseBase<PagedResult<LikesResponse>>, GetLikesRequest>(uri, $"/Likes", getLikesRequest);
 
             return result;
         }
