@@ -1,20 +1,24 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.Common.Utils;
 using Peek.Framework.UserService.Commands;
 using Peek.Framework.UserService.Consults;
 using Peek.Framework.UserService.Domain;
 using Peek.Models.Interfaces;
+using Json = Newtonsoft.Json.JsonConvert;
 
 namespace Peek.Repository
 {
     public class UserConsultRepository : IUserConsultRepository
     {
+        private readonly ILogger<UserConsultRepository> _logger;
         private readonly IHttp http;
         private readonly string uri;
-        public UserConsultRepository(IConfiguration _configuration, IHttp _http)
+        public UserConsultRepository(IConfiguration _configuration, IHttp _http , ILogger<UserConsultRepository> logger)
         {
+            _logger = logger;
             http = _http;
             uri = _configuration.GetSection("Urls:UserService").Value;
         }
@@ -28,8 +32,9 @@ namespace Peek.Repository
 
         public async Task<ResponseBase<PagedResult<User>>> Get(GetUsersRequest getUsersRequest)
         {
-
+            _logger.Log(LogLevel.Information, $"[RequestingToService] - GetUserByIdRequest received in UserConsultRepository class: {Json.SerializeObject(getUsersRequest)}");
             var result = await http.Post<ResponseBase<PagedResult<User>>, GetUsersRequest>(uri, "/UserReader/getusers", getUsersRequest);
+            _logger.Log(LogLevel.Information, $"[RequestingToService] - GetUserByIdRequest returned from service: {Json.SerializeObject(result)}");
 
             return result;
         }

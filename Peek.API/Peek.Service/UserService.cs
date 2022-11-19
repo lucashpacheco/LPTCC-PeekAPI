@@ -1,24 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Peek.Framework.Common.Request;
 using Peek.Framework.Common.Responses;
 using Peek.Framework.UserService.Consults;
 using Peek.Models.Interfaces;
 using Peek.Models.Output;
+using Json = Newtonsoft.Json.JsonConvert;
 
 namespace Peek.Service
 {
     public class UserService : IUserService
     {
+        private readonly ILogger<UserService> _logger;
+
         private readonly IUserConsultRepository _userConsultRepository;
-        public UserService(IUserConsultRepository userConsultRepository)
+        public UserService(ILogger<UserService> logger  , IUserConsultRepository userConsultRepository)
         {
+            _logger = logger;
             _userConsultRepository = userConsultRepository;
         }
 
         public async Task<ResponseBase<PagedResult<User>>> Get(GetUsersRequest getUsersRequest)
         {
+            _logger.Log(LogLevel.Information, $"[RequestReceived] - GetUserByIdRequest received in UserService class: {Json.SerializeObject(getUsersRequest)}");
+
             var response = new ResponseBase<PagedResult<User>>(success: true, errors: new List<string>(), data: null);
 
             var gambiarra = new PageInformation() { Page = 1, PageSize = 2000 };
